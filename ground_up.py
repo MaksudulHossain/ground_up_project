@@ -1,17 +1,20 @@
-def calculate_force(m,a):
-    return m*a 
+class PhysicsCalulator:
+    def calculate_force(self, m,a):
+        return m*a 
+    
+calculator = PhysicsCalulator() 
 
 try:
-    m = float(input("mass= "))
-    a = float(input("acc= "))
-    F = calculate_force(m,a)
-    # print(F)
-
-    with open("results.txt", "a") as f:
-        f.write(f"m={m}, a={a}, F={F}\n")
-
-    print(f"Force: {F}")
-    print("Saved to resuls.txt")
+    m = float(input("m=?"))
+    a = float(input("a=?"))
     
+    F = calculator.calculate_force(m,a)
+
+    with open("results2.txt","a") as f:
+        f.write(f"m={m}, a={a}, F={F}\n")
+    
+    print(f"F={F}")
+    print("saved to results.txt")
+
 except ValueError:
-    print("Invalidd input. Please enter numeric val.")
+    print("Invalid input. Please enter numeric value.")
