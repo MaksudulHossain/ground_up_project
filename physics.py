@@ -18,6 +18,17 @@ class PhysicsCalculator:
             raise InvalidPhysicsValue("Acceleration cannot be negative")
         return m*a 
     
+    def weight(self, m, g=9.8):
+        if m<0:
+            raise InvalidPhysicsValue("Mass cannot be -ve")
+        return m*g 
+    
+    def kinetic_energy(self, m, v):
+        if m<0 or v<0:
+            raise InvalidPhysicsValue("mass, velocity must be > 0")
+        return 0.5*m*v**2 
+    
+    
 def main():
     calculator = PhysicsCalculator()
     try:
@@ -27,7 +38,7 @@ def main():
         F = calculator.calculate_force(m,a)
 
         with open('results.txt','a') as f:
-            f.write(f"m={m}, a={a}, F={F}")
+            f.write(f"m={m}, a={a}, F={F}\n")
         
         logging.info(f"calculated force: m={m}, a={a}, F={F}")
         print(f"force={F}")
@@ -39,7 +50,7 @@ def main():
     except InvalidPhysicsValue as e:
         logging.error(f"Physics error: {e}")
         print(f"error: {e}")
-        
+
 
 if __name__ == '__main__':
     main()

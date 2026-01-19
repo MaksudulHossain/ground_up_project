@@ -2,3 +2,8 @@
 2026-01-19 12:26:47,062 - INFO -calculated force: m=10.0, a=20.0, F=200.0
 2026-01-19 12:26:54,653 - ERROR -Physics error: Acceleration cannot be negative
 2026-01-19 12:27:03,437 - ERROR -Invalid numeric error
+2026-01-19 12:40:24,822 - INFO -force result: 40.0
+2026-01-19 12:40:31,246 - INFO -weight result: 19.6
+2026-01-19 12:40:43,623 - INFO -kinetic_energy result: 30.0
+2026-01-19 12:40:51,966 - ERROR -Invalid numeric error
+2026-01-19 12:41:13,398 - ERROR -Physics error: mass, velocity must be > 0
