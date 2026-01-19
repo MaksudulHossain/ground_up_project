@@ -1,0 +1,5 @@
+formula,m,a,v
+force,-10,2,
+weight,50,,
+kinetic_energy,2,,-3
+potential_energy,2,,-3

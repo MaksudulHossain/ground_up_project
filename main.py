@@ -1,41 +1,49 @@
+import csv
 from physics import PhysicsCalculator, InvalidPhysicsValue 
 import logging
+
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s -%(message)s"
+)
 
 def main():
     calc = PhysicsCalculator()
 
     try:
-        choice = input("Choose formula (force/weight/kinetic_energy)").strip().lower()
+        with open('input_data.csv',newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                formula = row['formula'].strip().lower() 
+                try:
+                    if formula == 'force':
+                        m = float(row['m'])
+                        a = float(row['a'])
+                        result = calc.calculate_force(m,a)
 
-        if choice=='force':
-            m = float(input("m=? "))
-            a = float(input("a=? "))
-            result = calc.calculate_force(m,a)
+                    elif formula == 'weight':
+                        m = float(row['m'])
+                        result = calc.weight(m)
+                    
+                    elif formula == 'kinetic_energy':
+                        m = float(row['m'])
+                        v = float(row['v'])
+                        result = calc.kinetic_energy(m,v)
+                    else:
+                        print(f"unknown formula: {formula}")
+                        continue 
 
-        elif choice=='weight':
-            m = float(input("m=? "))
-            result = calc.weight(m)
+                    with open("result.txt","a") as f:
+                        f.write(f"{formula} result: {result}\n")
 
-        elif choice=='kinetic_energy':
-            m = float(input("m=? "))
-            v = float(input("v=? "))
-            result = calc.kinetic_energy(m,v)
-        else:
-            print("Invalid choice")
-            return 
-        with open("results.txt","a") as f:
-            f.write(f"choice={choice}, result={result}")
+                except InvalidPhysicsValue as e:
+                    logging.error(f"Physics error: {e}")
+                    print(f"error in row {row}: {e}")
 
-        logging.info(f"{choice} result: {result}")
-        print(f"{choice.capitalize()}={result}")
-
-    except ValueError:
-        logging.error("Invalid numeric error")
-        print("Invalid input. Please enter numeric values.")
-    
-    except InvalidPhysicsValue as e:
-        logging.error(f"Physics error: {e}")
-        print(f"Error: {e}")
+    except FileNotFoundError:
+        logging.error("CSV file not found")
+        print("CSV file not found")
 
 if __name__ == '__main__':
     main()

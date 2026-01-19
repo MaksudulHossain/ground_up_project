@@ -1,3 +1,0 @@
-m=10.0, a=20.0, F=200.0
-m=12.0, a=45.0, F=540.0
-m=10.0, a=20.0, F=200.0choice=force, result=40.0choice=weight, result=19.6choice=kinetic_energy, result=30.0
